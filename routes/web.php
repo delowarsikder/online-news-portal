@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\About;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 
@@ -67,3 +68,7 @@ Route::get("about/{data}", [About::class, 'index']);
 // Route::view('contact','contact'); //routing method-2
 
 Route::get('contactus/{name}', [ContactController::class, 'loadView']);
+
+//Fallback Route 
+Route::fallback(FallbackController::class);
+

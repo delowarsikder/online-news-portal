@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class StudentController extends Controller
 {
@@ -36,8 +37,9 @@ class StudentController extends Controller
    */
   public function store(Request $request)
   {
-    $input = $request->all();
-    Student::create($input);
+    $student =  $request->all();   // It will get all data from request
+    // $student= $request->except(['_token', '_method']);   // use this to exclude _token and _method
+    Student::create($student);
     return redirect('student')->with('flash_message', 'Student has been added successfully!');
   }
 
@@ -50,7 +52,7 @@ class StudentController extends Controller
   public function show($id)
   {
     $student = Student::find($id);
-    return view('students.show')->with('students', $student);
+    return view('students.show')->with('student', $student);
   }
 
   /**
@@ -62,7 +64,7 @@ class StudentController extends Controller
   public function edit($id)
   {
     $student = Student::find($id);
-    return view('students.edit')->with('students', $student);
+    return view('students.edit')->with('student', $student);
   }
 
   /**

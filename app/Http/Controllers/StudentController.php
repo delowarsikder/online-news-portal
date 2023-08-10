@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use Barryvdh\Debugbar\Facades\Debugbar;
+use DebugBar\DebugBar as DebugBarDebugBar;
 
 class StudentController extends Controller
 {

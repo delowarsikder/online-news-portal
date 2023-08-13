@@ -18,40 +18,38 @@
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Email</th>
                 <th>Mobile</th>
-                <th></th>
-                <th></th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               @foreach($students as $student)
               <tr>
-                <!-- <td>{{$loop->iteration}}</td> --> 
+                <!-- <td>{{$loop->iteration}}</td> -->
                 <td>{{$student->id}}</td>
+                <td> <img width="50px" height="50px" class="img-circle" src= "{{asset(($student->photo))}}" alt="student-photo"></td>
                 <td>{{$student->name}}</td>
                 <td>{{$student->address}}</td>
                 <td>{{$student->email}}</td>
                 <td>{{$student->mobile}}</td>
                 <td>
-                  <a href="{{url('/student/'.$student->id)}}" title="Student Details" class="btn btn-info btn-sm"><i
-                      class="fa fa-eye" aria-hidden="true"></i> view</a>
-                  <a href="{{url('/student/'.$student->id.'/edit')}}" title="Update Student Details" class="btn btn-secondary btn-sm"><i
-                      class="fa fa-eye" aria-hidden="true"></i> Edit</a>
-
-<!-- 
-                  <a href="{{url('/student/'.$student->id)}}" title="Edit Student Details"
-                    class="btn btn-warning btn-sm">Edit</a>
- -->
-                  <form method="POST" action="{{ url('/student' . '/' . $student->id) }}" accept-charset="UTF-8"
-                    style="display:inline">
-                    {{ method_field('DELETE') }}
-                    {{ csrf_field() }}
-                    <button type="submit" class="btn btn-danger btn-sm" title="Delete Student"
-                      onclick="return confirm('are you Confirmed to delete?')">Delete</button>
-                  </form>
+                  <span> <a href="{{url('/student/'.$student->id)}}" title="Student Details"
+                      class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> view</a> </span>
+                  <span><a href="{{url('/student/'.$student->id.'/edit')}}" title="Update Student Details"
+                      class="btn btn-secondary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Edit</a> </span>
+                  <span>
+                    <form method="POST" action="{{ url('/student' . '/' . $student->id) }}" accept-charset="UTF-8"
+                      style="display:inline">
+                      {{ method_field('DELETE') }}
+                      {{ csrf_field() }}
+                      <button type="submit" class="btn btn-danger btn-sm" title="Delete Student"
+                        onclick="return confirm('are you Confirmed to delete?')">Delete</button>
+                    </form>
+                  </span>
                 </td>
               </tr>
               @endforeach

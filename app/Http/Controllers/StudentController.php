@@ -39,7 +39,11 @@ class StudentController extends Controller
   public function store(Request $request)
   {
     $student =  $request->all();   // It will get all data from request
-    // $student= $request->except(['_token', '_method']);   // use this to exclude _token and _method
+    // $this->validate($request, [
+    //   'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+    // ]);
+
+    $student["photo"] = $this->storeImage($request);
     Student::create($student);
     return redirect('student')->with('flash_message', 'Student has been added successfully!');
   }
@@ -93,5 +97,17 @@ class StudentController extends Controller
   {
     Student::destroy($id);
     return redirect('student')->with('flash_message', 'Student has been deleted successfully');
+  }
+
+  private function storeImage($request)
+  {
+    if ($file = $request->hasFile('photo')) {
+      $file = $request->file('photo');
+      $fileName = uniqid() . '-' . $file->getClientOriginalName();
+      $destinationPath = 'storage\images';
+      $file->move(public_path($destinationPath), $fileName);
+      $storagePath = $destinationPath."\\".$fileName;
+      return $storagePath;
+    }
   }
 }

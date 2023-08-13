@@ -37,6 +37,7 @@
         <!-- <input type="tel" id="mobile" name="mobile" class="form-control" value="+880" placeholder="+880" pattern="^(?:(?:\+|00)88)?(01[3-9])\d{8}$" required> -->
         <input type="tel" id="mobile" name="mobile" class="form-control" value="+880" placeholder="+880" required>
       </div>
+
       <div class="mt-2 form-group">
         <input type="file" name="photo" id="photo" class="form-control @error('image') is-invalid @enderror">
         @error('photo')
@@ -51,13 +52,14 @@
           {{ $message }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <img src="storage/images/{{ Session::get('image') }}" class="mb-2" style="width:400px;height:200px;">
+        <img width="100" height="100" class="img-circle" src="{{asset(($student->photo))}}" alt="student-photo">
         @endif
       </div>
-
       <div class="mt-2 form-group">
-        <button type="submit" class="mt-2 btn btn-primary">Save</button>
-        <a href="{{route('student.index')}}" class="btn btn-warning">Cancel </a>
+        <button type="submit" class="btn btn-primary p-2"
+          onclick="return confirm('Are you Confirmed to Save?')">Save</button>
+        <button class="btn"> <a href="{{route('student.index')}}" type="button" class="btn btn-warning p-2">Cancel
+          </a></button>
       </div>
     </form>
   </div>

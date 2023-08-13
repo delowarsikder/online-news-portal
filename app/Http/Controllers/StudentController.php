@@ -45,7 +45,7 @@ class StudentController extends Controller
 
     $student["photo"] = $this->storeImage($request);
     Student::create($student);
-    return redirect('student')->with('flash_message', 'Student has been added successfully!');
+    return redirect('student')->with('message', 'Student has been added successfully!');
   }
 
   /**
@@ -82,9 +82,20 @@ class StudentController extends Controller
   public function update(Request $request, $id)
   {
     $student = Student::find($id);
-    $input = $request->all();
-    $student->update($input);
-    return redirect('student')->with('flash_message', 'Student has been updated successfully!');
+    $updateInfo = $request->all();
+    $currentFile=$student->photo;
+    if ($request->file != '') {
+      $path = public_path();
+      //code for remove old file
+      if ($student->file != ''  && $student->file != null) {
+        $old_file_path = $path .$currentFile ;
+        unlink($old_file_path);
+      }
+      //upload new file
+      $updateInfo['photo'] = $this->storeImage($request);
+      $student->update($updateInfo);
+    }
+    return redirect('student')->with('message', 'Student has been updated successfully!');
   }
 
   /**
@@ -96,7 +107,7 @@ class StudentController extends Controller
   public function destroy($id)
   {
     Student::destroy($id);
-    return redirect('student')->with('flash_message', 'Student has been deleted successfully');
+    return redirect('student')->with('message', 'Student has been deleted successfully');
   }
 
   private function storeImage($request)
@@ -106,7 +117,7 @@ class StudentController extends Controller
       $fileName = uniqid() . '-' . $file->getClientOriginalName();
       $destinationPath = 'storage\images';
       $file->move(public_path($destinationPath), $fileName);
-      $storagePath = $destinationPath."\\".$fileName;
+      $storagePath = $destinationPath . "\\" . $fileName;
       return $storagePath;
     }
   }

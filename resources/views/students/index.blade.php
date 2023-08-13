@@ -13,8 +13,8 @@
           <i class="fa-solid fa-plus"></i>
           Add Student Info</a>
         <br />
-        <div class="table-responsive">
-          <table class="table">
+        <div class="table-responsive mt-1">
+          <table class="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>ID</th>
@@ -31,17 +31,17 @@
               <tr>
                 <!-- <td>{{$loop->iteration}}</td> -->
                 <td>{{$student->id}}</td>
-                <td> <img width="50px" height="50px" class="img-circle" src= "{{asset(($student->photo))}}" alt="student-photo"></td>
+                <td> <img width="100" height="100" class="img-circle" src="{{asset(($student->photo))}}" alt="student-photo"></td>
                 <td>{{$student->name}}</td>
                 <td>{{$student->address}}</td>
                 <td>{{$student->email}}</td>
                 <td>{{$student->mobile}}</td>
                 <td>
-                  <span> <a href="{{url('/student/'.$student->id)}}" title="Student Details"
+                  <span class="p-1"> <a href="{{url('/student/'.$student->id)}}" title="Student Details"
                       class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> view</a> </span>
-                  <span><a href="{{url('/student/'.$student->id.'/edit')}}" title="Update Student Details"
+                  <span class="p-1"><a href="{{url('/student/'.$student->id.'/edit')}}" title="Update Student Details"
                       class="btn btn-secondary btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> Edit</a> </span>
-                  <span>
+                  <span class="p-1">
                     <form method="POST" action="{{ url('/student' . '/' . $student->id) }}" accept-charset="UTF-8"
                       style="display:inline">
                       {{ method_field('DELETE') }}

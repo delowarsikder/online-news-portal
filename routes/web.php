@@ -22,7 +22,7 @@ use App\Http\Controllers\StudentController;
  * Generate all routes of post 
  */
 //Route for invoke method // home
-Route::get('/', HomeController::class);
+Route::get('/', StudentController::class);
 
 // Route::resource('post', PostController::class); 
 //alternate way 

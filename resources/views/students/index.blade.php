@@ -29,9 +29,16 @@
             <tbody>
               @foreach($students as $student)
               <tr>
-                <!-- <td>{{$loop->iteration}}</td> -->
                 <td>{{$student->id}}</td>
-                <td> <img width="100" height="100" class="img-circle" src="{{asset(($student->photo))}}" alt="student-photo"></td>
+                <td>
+                  @if ($student->photo)
+                  <img width="100" height="100" class="img-circle " src="{{asset(($student->photo))}}"
+                    alt="{{asset(($student->photo))}}">
+                  @else
+                  <img width="100" height="100" class="img-circle " src="{{asset('/images/user.png')}}"
+                    alt=" {{asset(('images/user.png'))}}" />
+                  @endif
+                </td>
                 <td>{{$student->name}}</td>
                 <td>{{$student->address}}</td>
                 <td>{{$student->email}}</td>

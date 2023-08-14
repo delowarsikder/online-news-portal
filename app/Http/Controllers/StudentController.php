@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use DebugBar\DebugBar as DebugBarDebugBar;
+use File;
 
 class StudentController extends Controller
 {
@@ -14,6 +15,12 @@ class StudentController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+  public function __invoke()
+  {
+    $students = Student::all();
+    return view('students.index')->with('students', $students);
+  }
+
   public function index()
   {
     $students = Student::all();
@@ -73,7 +80,7 @@ class StudentController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
+   * date the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  int  $id
@@ -83,18 +90,16 @@ class StudentController extends Controller
   {
     $student = Student::find($id);
     $updateInfo = $request->all();
-    $currentFile=$student->photo;
-    if ($request->file != '') {
-      $path = public_path();
-      //code for remove old file
-      if ($student->file != ''  && $student->file != null) {
-        $old_file_path = $path .$currentFile ;
-        unlink($old_file_path);
+    $currentImage = public_path($student['photo']);
+    if ($request->photo) {
+      if (file_exists($currentImage)) {
+        @unlink($currentImage);
       }
-      //upload new file
       $updateInfo['photo'] = $this->storeImage($request);
-      $student->update($updateInfo);
+    } else {
+      unset($updateInfo['photo']);
     }
+    $student->update($updateInfo);
     return redirect('student')->with('message', 'Student has been updated successfully!');
   }
 
@@ -112,9 +117,9 @@ class StudentController extends Controller
 
   private function storeImage($request)
   {
-    if ($file = $request->hasFile('photo')) {
+    if ($request->photo) {
       $file = $request->file('photo');
-      $fileName = uniqid() . '-' . $file->getClientOriginalName();
+      $fileName = date('YmdHis') . '-' . uniqid() . '-' . $file->getClientOriginalName();
       $destinationPath = 'storage\images';
       $file->move(public_path($destinationPath), $fileName);
       $storagePath = $destinationPath . "\\" . $fileName;

@@ -40,6 +40,8 @@
 
       <div class="mt-2 form-group">
         <input type="file" name="photo" id="photo" class="form-control @error('image') is-invalid @enderror">
+        <img width="100" height="100" id="image" class="img-circle mt-2" src="{{asset('/images/user.png')}}" alt="preview image">
+
         @error('photo')
         <span class="text-danger">{{ $message }}</span>
         @enderror
@@ -55,6 +57,7 @@
         <img width="100" height="100" class="img-circle" src="{{asset(($student->photo))}}" alt="student-photo">
         @endif
       </div>
+
       <div class="mt-2 form-group">
         <button type="submit" class="btn btn-primary p-2"
           onclick="return confirm('Are you Confirmed to Save?')">Save</button>

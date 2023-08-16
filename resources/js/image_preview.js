@@ -1,0 +1,3 @@
+function imagePreview() {
+  alert("hello");
+}

@@ -28,7 +28,7 @@
             </thead>
             <tbody>
               @foreach($students as $student)
-              <tr>
+              <tr class="text-center">
                 <td>{{$student->id}}</td>
                 <td>
                   @if ($student->photo)
@@ -43,7 +43,7 @@
                 <td>{{$student->address}}</td>
                 <td>{{$student->email}}</td>
                 <td>{{$student->mobile}}</td>
-                <td>
+                <td >
                   <span class="p-1"> <a href="{{url('/student/'.$student->id)}}" title="Student Details"
                       class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> view</a> </span>
                   <span class="p-1"><a href="{{url('/student/'.$student->id.'/edit')}}" title="Update Student Details"
@@ -60,17 +60,9 @@
                 </td>
               </tr>
               @endforeach
-
             </tbody>
-
-
-
           </table>
-
-
         </div>
-
-
       </div>
     </div>
   </div>

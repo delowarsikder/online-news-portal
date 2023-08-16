@@ -52,7 +52,7 @@ class StudentController extends Controller
 
     $student["photo"] = $this->storeImage($request);
     Student::create($student);
-    return redirect('student')->with('message', 'Student has been added successfully!');
+    return redirect('student')->with('success', 'Student has been added successfully!');
   }
 
   /**

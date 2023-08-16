@@ -53,7 +53,7 @@
         @error('photo')
         <span class="text-danger">{{ $message }}</span>
         @enderror
-        <img width="100" height="100" class="img-circle mt-1" src="{{asset(($student->photo))}}" alt="student-photo">
+        <img width="100" height="100" name="photo" id="image" class="img-circle mt-1" src="{{asset(($student->photo))}}" alt="student-photo">
         </td>
       </div>
 
@@ -65,6 +65,5 @@
       </div>
     </form>
   </div>
-</div>
 
 @stop

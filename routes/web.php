@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,9 @@ use App\Http\Controllers\PostController;
 /*
  * Generate all routes of post 
  */
+//Route for invoke method // home
+Route::get('/', HomeController::class);
+
 // Route::resource('post', PostController::class); 
 //alternate way 
 
@@ -52,10 +56,10 @@ Route::prefix('/post')->group(function () {
   Route::delete('/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 });
 
+Route::resource('/student', StudentController::class);
 
 
-//Route for invoke method
-Route::get('/', HomeController::class);
+
 
 // Route::get('path','controller-file');
 
@@ -69,6 +73,8 @@ Route::get("about/{data}", [About::class, 'index']);
 
 Route::get('contactus/{name}', [ContactController::class, 'loadView']);
 
+
+
+
 //Fallback Route 
 Route::fallback(FallbackController::class);
-

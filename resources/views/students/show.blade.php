@@ -22,6 +22,7 @@
   </div>
   <div class="card-body">
     <p>Id : {{$student->id}}</p>
+    <p> <img width="100" height="100" class="img-circle" src="{{asset(($student->photo))}}" alt="student-photo"></p>
     <h5>Name : {{$student->name}}</h5>
     <p>Address: {{$student->address}}</p>
     <p>Email: {{$student->email}}</p>

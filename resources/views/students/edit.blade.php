@@ -16,7 +16,7 @@
   </div>
   <div class="card-body">
 
-    <form action="{{url('student/'.$student->id)}}" method="post">
+    <form action="{{url('student/'.$student->id)}}" method="post" enctype='multipart/form-data'>
       {!! csrf_field()!!}
       @method('PUT')
       <div class="mt-2 form-group">
@@ -32,25 +32,38 @@
 
       <div class="mt-2 form-group">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" id="email" value="{{$student->email}}"
+        <!-- <input type="email" class="form-control" name="email" id="email" value="{{$student->email}}"
           placeholder="@stud.kuet.ac.bd" pattern="^([\w]+@(stud\.kuet\.ac\.bd))$" required>
+       -->
+        <input type="email" class="form-control" name="email" id="email" value="{{$student->email}}"
+          placeholder="@stud.kuet.ac.bd" required>
       </div>
 
       <div class="mt-2 form-group">
         <label for="mobile" class="form-label">Mobile Number</label>
+        <!-- <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="+880" value="{{$student->mobile}}"
+          pattern="^(?:(?:\+|00)88)?(01[3-9])\d{8}$" required> -->
         <input type="tel" id="mobile" name="mobile" class="form-control" placeholder="+880" value="{{$student->mobile}}"
-          pattern="^(?:(?:\+|00)88)?(01[3-9])\d{8}$" required>
+          required>
       </div>
+
       <div class="mt-2 form-group">
-
-        <button type="submit" class="mt-2 btn btn-primary"
-          onclick="return confirm('Are you Confirmed to update?')">Update</button>
-        <a href="{{route('student.index')}}" class="btn btn-warning">Cancel </a>
+        <strong>Image:</strong>
+        <input type="file" name="photo" id="photo" class="form-control @error('image') is-invalid @enderror">
+        @error('photo')
+        <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <img width="100" height="100" class="img-circle mt-1" src="{{asset(($student->photo))}}" alt="student-photo">
+        </td>
       </div>
 
+      <div class="mt-2 form-group">
+        <button type="submit" class="btn btn-primary p-2">Update</button>
+        <!-- <button type="submit" class="btn btn-primary p-2" onclick="return confirm('Are you Confirmed to update?')">Update</button> -->
+        <button class="btn"> <a href="{{route('student.index')}}" type="button" class="btn btn-warning p-2">Cancel
+          </a></button>
+      </div>
     </form>
-
-
   </div>
 </div>
 

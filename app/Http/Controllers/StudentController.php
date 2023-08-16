@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use Barryvdh\Debugbar\Facades\Debugbar;
 use DebugBar\DebugBar as DebugBarDebugBar;
+use File;
 
 class StudentController extends Controller
 {
@@ -14,6 +15,12 @@ class StudentController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
+  public function __invoke()
+  {
+    $students = Student::all();
+    return view('students.index')->with('students', $students);
+  }
+
   public function index()
   {
     $students = Student::all();
@@ -39,9 +46,13 @@ class StudentController extends Controller
   public function store(Request $request)
   {
     $student =  $request->all();   // It will get all data from request
-    // $student= $request->except(['_token', '_method']);   // use this to exclude _token and _method
+    // $this->validate($request, [
+    //   'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+    // ]);
+
+    $student["photo"] = $this->storeImage($request);
     Student::create($student);
-    return redirect('student')->with('flash_message', 'Student has been added successfully!');
+    return redirect('student')->with('message', 'Student has been added successfully!');
   }
 
   /**
@@ -69,7 +80,7 @@ class StudentController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
+   * date the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  int  $id
@@ -78,9 +89,18 @@ class StudentController extends Controller
   public function update(Request $request, $id)
   {
     $student = Student::find($id);
-    $input = $request->all();
-    $student->update($input);
-    return redirect('student')->with('flash_message', 'Student has been updated successfully!');
+    $updateInfo = $request->all();
+    $currentImage = public_path($student['photo']);
+    if ($request->photo) {
+      if (file_exists($currentImage)) {
+        @unlink($currentImage);
+      }
+      $updateInfo['photo'] = $this->storeImage($request);
+    } else {
+      unset($updateInfo['photo']);
+    }
+    $student->update($updateInfo);
+    return redirect('student')->with('message', 'Student has been updated successfully!');
   }
 
   /**
@@ -92,6 +112,18 @@ class StudentController extends Controller
   public function destroy($id)
   {
     Student::destroy($id);
-    return redirect('student')->with('flash_message', 'Student has been deleted successfully');
+    return redirect('student')->with('message', 'Student has been deleted successfully');
+  }
+
+  private function storeImage($request)
+  {
+    if ($request->photo) {
+      $file = $request->file('photo');
+      $fileName = date('YmdHis') . '-' . uniqid() . '-' . $file->getClientOriginalName();
+      $destinationPath = 'storage\images';
+      $file->move(public_path($destinationPath), $fileName);
+      $storagePath = $destinationPath . "\\" . $fileName;
+      return $storagePath;
+    }
   }
 }

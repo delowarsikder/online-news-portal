@@ -74,6 +74,11 @@ Route::get("about/{data}", [About::class, 'index']);
 Route::get('contactus/{name}', [ContactController::class, 'loadView']);
 
 
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+  Route::get('/page', 'PagesController@index')->name('pages.index');
+  Route::get('/page/about', 'PagesController@about')->name('pages.about');
+});
+
 
 
 //Fallback Route 

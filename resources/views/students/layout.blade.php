@@ -30,7 +30,8 @@
       });
     });
   </script>
-@endpush
+  @endpush
 
 </body>
+
 </html>

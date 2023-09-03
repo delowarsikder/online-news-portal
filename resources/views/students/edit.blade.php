@@ -1,4 +1,4 @@
-@extends('students.layout')
+@extends('layouts.master')
 @section('content')
 <div class="card">
   <div class="card-header">
@@ -15,7 +15,6 @@
     <h2>Update Student Info</h2>
   </div>
   <div class="card-body">
-
     <form action="{{url('student/'.$student->id)}}" method="post" enctype='multipart/form-data'>
       {!! csrf_field()!!}
       @method('PUT')
@@ -53,7 +52,8 @@
         @error('photo')
         <span class="text-danger">{{ $message }}</span>
         @enderror
-        <img width="100" height="100" name="photo" id="image" class="img-circle mt-1" src="{{asset(($student->photo))}}" alt="student-photo">
+        <img width="100" height="100" name="photo" id="image" class="img-circle mt-1" src="{{asset(($student->photo))}}"
+          alt="student-photo">
         </td>
       </div>
 
@@ -65,5 +65,5 @@
       </div>
     </form>
   </div>
-
+</div>
 @stop

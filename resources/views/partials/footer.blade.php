@@ -1,4 +1,3 @@
-
 <!-- Footer -->
 <footer class="text-center text-lg-start bg-light text-muted mt-auto">
   <!-- Section: Social media -->
@@ -116,7 +115,7 @@
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
     © 2021 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <a class="text-reset fw-bold" href="#">all rights reserved by someone</a>
   </div>
   <!-- Copyright -->
 </footer>

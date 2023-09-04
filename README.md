@@ -69,4 +69,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
   * https://www.youtube.com/watch?v=kWNz3BCZBvU&list=PLukI021tlKTPg5Bcb92sC1vYmM-9rieXW
    * Debug code: https://github.com/barryvdh/laravel-debugbar
    * CRUD: https://www.tutussfunny.com/laravel-9-crud-application-tutorial-2/?expand_article=1
+   * https://codeanddeploy.com/blog/laravel/laravel-8-authentication-login-and-registration-with-username-or-email#ixCwUUTI0HRDSNTb0sFe8hrhu
+   
    

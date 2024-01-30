@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FallbackController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\StudentController;
 
 /*
@@ -73,11 +74,29 @@ Route::get("about/{data}", [About::class, 'index']);
 
 Route::get('contactus/{name}', [ContactController::class, 'loadView']);
 
-
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/page', 'PagesController@index')->name('pages.index');
   Route::get('/page/about', 'PagesController@about')->name('pages.about');
+
+  //
+  Route::group(['middleware' => ['guest']], function () {
+    // Registration Routes
+    Route::get('/signup', 'RegistrationController@show')->name('registration.show');
+    Route::post('/signup', 'RegistrationController@register')->name('registration.register');
+
+    // Login Routes
+    Route::get('/login', 'LoginController@show')->name('login.show');
+    Route::post('/login', 'LoginController@login')->name('login.perform');
+  });
+
+  Route::group(['middleware' => ['auth']], function () {
+    //Logout
+    Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
+  });
 });
+
+
+
 
 
 

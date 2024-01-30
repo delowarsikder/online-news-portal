@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class RegisterController extends Controller
+class RegistrationController extends Controller
 {
   //
   /**
@@ -20,16 +22,14 @@ class RegisterController extends Controller
   /**
    * Handle account registration request
    * 
-   * @param RegisterRequest $request
+   * @param RegistrationRequest $request
    * 
    * @return \Illuminate\Http\Response
    */
-  public function register(RegisterRequest $request)
+  public function register(RegistrationRequest $request)
   {
     $user = User::create($request->validated());
-
     auth()->login($user);
-
     return redirect('/')->with('success', "Account successfully registered.");
   }
 }
